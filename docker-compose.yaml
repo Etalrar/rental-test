@@ -1,0 +1,47 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./.formula/web/
+    image: php:8.1-apache
+    container_name: laravel-app
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./test:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - internal
+  db:
+    image: mysql/mysql-server:8.0.28
+    container_name: db 
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: laravel_db
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    networks:
+      - internal
+  nginxback:
+    build:
+      context: ./.formula/nginx/
+    container_name: nginx
+    volumes:
+      - ./test:/var/www/html
+      - ./.formula/nginx:/etc/nginx/conf.d
+    ports:
+      - 8000:80
+    depends_on:
+      - web
+    restart: unless-stopped
+    networks:
+      - internal
+    links:
+      - web
+networks:
+  internal:
+    driver: bridge
