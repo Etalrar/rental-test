@@ -7,7 +7,7 @@
 </head>
 <body>
     @foreach($customers as $customer)
-    <h1><em>Rentals for {{ $customer['name'] }}</em></h1>
+    <h1><em>Rental Record for {{ $customer['name'] }}</em></h1>
     
     <ul>
         @foreach($customer['rentals'] as $rental)
@@ -15,8 +15,8 @@
         @endforeach
     </ul>
     
-    <p><em>Total Charge: ${{ $customer['totalAmount'] }}</em></p>
-    <p><em>Total Frequent Renter Points: {{ $customer['frequentRenterPoints'] }}</em></p>
+    <p><em>Amount owed is ${{ $customer['totalAmount'] }}</em></p>
+    <p><em>You earned {{ $customer['frequentRenterPoints'] }} frequent renter points</em></p>
     
     @if (!$loop->last)
     <hr> <!-- Add a horizontal line between customers -->
