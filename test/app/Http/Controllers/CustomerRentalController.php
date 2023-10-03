@@ -72,7 +72,7 @@ class CustomerRentalController extends Controller
 
     private function calculateFrequentRenterPoints($value)
     {
-        if($value['bonus'] == true){
+        if($value['bonus'] == true && $value ['totalDays'] > 2){
             return 2;
         } else {
             return 1;
