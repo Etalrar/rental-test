@@ -38,15 +38,15 @@ class CustomerRentalController extends Controller
                     'frequentRenterPoints' => 0
                 ];
             }
-    
+            $movieAmount = $this->calculateRentalAmount($value);
             $rental = [
                 'movie' => $value['movie_name'],
-                'days' => $value['totalDays']
+                'amount' => $movieAmount
             ];
     
             $customers[$customerId]['rentals'][] = $rental;
     
-            $customers[$customerId]['totalAmount'] += $this->calculateRentalAmount($value);
+            $customers[$customerId]['totalAmount'] += $movieAmount;
             $customers[$customerId]['frequentRenterPoints'] += $this->calculateFrequentRenterPoints($value);
         }
     

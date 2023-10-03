@@ -11,7 +11,7 @@
     
     <ul>
         @foreach($customer['rentals'] as $rental)
-        <li>{{ $rental['movie'] }}: {{ $rental['days'] }}</li>
+        <li>{{ $rental['movie'] }}: {{ $rental['amount'] }}</li>
         @endforeach
     </ul>
     
